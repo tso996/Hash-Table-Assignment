@@ -13,26 +13,27 @@ class HashTable{
         struct Entry
         {
             std::string data;
-            std::string status = "no entry";
+            std::string status = "never used";
         };
 
         static const int tableSize = 26;
 
         Entry mEntry[tableSize];
 
-        int findHash(char key){
-            
+        int findHash(char key)
+        {
             int index = 97 - key;
             
             return index;
         }
 
-        int find(int pos){
+        int find(int pos)
+        {
             while(true){
                 if(pos>25){
                     return -1;
                 }
-                if(mEntry[pos].status == "no entry"){
+                if(mEntry[pos].status == "never used"){
                     return pos;
                 }
                 pos = pos + 1;
@@ -41,14 +42,14 @@ class HashTable{
 
     public:
 
-        void addEntry(std::string value){
-            
-            int positionRequired = findHash(value[value.length()-1]);
+        void addEntry(std::string value)
+        {   
+            int positionRequired = findHash(value[value.length()-1]);// could use value.back();
             int positionAvailable = find(positionRequired);
             if(positionAvailable == -1){
                 std::cout<<"table is full!"<<std::endl;
                 return;
-            }else{
+            }else{//white;
                 mEntry[positionAvailable].data = value;
                 mEntry[positionAvailable].status = "occupied";
             }
